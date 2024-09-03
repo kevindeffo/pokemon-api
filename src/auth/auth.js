@@ -28,3 +28,29 @@ module.exports = (req, res, next) => {
         }
     })
 }
+
+module.exports.verifyResetToken = (req, res, next) => {
+    const resetToken = req.params.token;
+
+    if (!resetToken) {
+        const message = "Aucun jeton de réinitialisation fourni."
+        return res.status(400).json({ message });
+    }
+
+    User.findOne({
+        where: {
+            resetPasswordToken: resetToken,
+            resetPasswordExpires: { [Op.gt]: Date.now() }
+        }
+    }).then(user => {
+        if (!user) {
+            const message = "Le jeton de réinitialisation de mot de passe est invalide ou a expiré."
+            return res.status(400).json({ message });
+        }
+        req.user = user;
+        next();
+    }).catch(error => {
+        const message = "Une erreur est survenue, veuillez réessayer plus tard."
+        res.status(500).json({ message, error });
+    });
+};
