@@ -62,6 +62,14 @@ const swaggerOptions = {
                         picture: {
                             type: 'string',
                             description: 'picture of The pokemon',
+                        },
+                        types: {
+                            type: 'array',
+                            description: 'types of pokemon',
+                            items: {
+                                type: 'string',
+                                description: 'Type of the pokemon',
+                            }
                         }
                     }
                 }
