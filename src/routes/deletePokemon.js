@@ -1,6 +1,30 @@
 const {Pokemon} = require("../db/sequelize");
 
 module.exports = (app) => {
+    /**
+     * @swagger
+     * /api/pokemons/{id}:
+     *   delete:
+     *     summary: delete pokemon by id
+     *     tags: [Pokemons]
+     *     security:
+     *       - bearerAut: []
+     *     parameters:
+     *       - in: query
+     *         name: id
+     *         schema:
+     *           type: number
+     *         description: The id of the pokemon to delete
+     *     responses:
+     *       description: ok
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *              message:
+     *                type: number
+     */
     app.delete("/api/pokemons/:id", (req, res) => {
         Pokemon.findByPk(req.params.id)
         .then(pokemon => {
