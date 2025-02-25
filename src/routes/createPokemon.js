@@ -71,7 +71,7 @@ module.exports = (app) => {
                 if (e instanceof ValidationError || e instanceof UniqueConstraintError) {
                     return res.status(400).json({ message: e.message, data: e });
                 }
-                const message = "Le pokemon n'a pas pu être créé. Veuillez réessayer plus tard, s'il vous plaît.";
+                const message = "Le pokemon n'a pas pu être créé. Veuillez réessayer plus tard, s'il vous plaît mais n'oubliez pas.";
                 res.status(500).json({ message, data: e });
             });
     });

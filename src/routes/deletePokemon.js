@@ -29,7 +29,7 @@ module.exports = (app) => {
         Pokemon.findByPk(req.params.id)
         .then(pokemon => {
             if (pokemon === null) {
-                const message = "le pokemon que vous essaye de supprimer n'existe pas";
+                const message = "le pokemon que vous essaye de supprimer n'existe pas.";
 
                 res.status(404).json({message});
             }
@@ -39,12 +39,12 @@ module.exports = (app) => {
                     id: pokemon.id
                 }
             }).then(_=> {
-                const message = "Le pokemon a bien ete supprime";
+                const message = "Le pokemon a bien ete supprime.";
 
                 res.json({message, data: pokemonDeleted});
             })
             .catch(e => {
-                const message = "Le  pokemon n'a pas pu etre supprime. Veuillez reesayer plutard svp";
+                const message = "Le  pokemon n'a pas pu etre supprime. Veuillez reesayer plutard svp.";
     
                 res.status(500).json({
                     message,

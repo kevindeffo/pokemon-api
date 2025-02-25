@@ -53,7 +53,7 @@ module.exports = (app) => {
                     limit: limit
                 })
                 .then(({count, rows}) => {
-                    const message = `Il y a ${count} pokemons correspondant a la recherche ${name}`;
+                    const message = `Il y a ${count} pokemons correspondant a la recherche ${name}.`;
     
                     res.json({message, data: rows});
                 });
@@ -65,12 +65,12 @@ module.exports = (app) => {
         } else {
             Pokemon.findAll({order: ["name"]})
             .then(pokemons => {
-                const message = "la liste des pokemons a bien ete recupere";
+                const message = "la liste des pokemons a bien ete recupere.";
     
                 res.json({message, data: pokemons});
             })
             .catch(e => {
-                const message = "Le liste des pokemon n'a pas pu etre recupere.Veuillez reesayer plutard svp";
+                const message = "Le liste des pokemon n'a pas pu etre recupere.Veuillez reesayer plutard svp.";
     
                 res.status(500).json({
                     message,

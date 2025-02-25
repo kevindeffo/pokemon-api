@@ -8,7 +8,7 @@ module.exports = (app) => {
             where: {id: id}
         })
         .then(() => {
-            const message = "Un pokemon a bien ete modifier";
+            const message = "Un pokemon a bien ete modifier.";
 
             res.json({message});
         })
@@ -20,7 +20,7 @@ module.exports = (app) => {
             if (e instanceof UniqueConstraintError) {
                 return res.status(400).json({message: e.message, data: e})
             }
-            const message = "Le  pokemon n'a pas pu etre modifie.Veuillez reesayer plutard svp";
+            const message = "Le  pokemon n'a pas pu etre modifie.Veuillez reesayer plutard svp.";
 
             res.status(500).json({
                 message,
