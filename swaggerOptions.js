@@ -1,93 +1,65 @@
-const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerJsDoc = require('swagger-jsdoc');
 
 const swaggerOptions = {
     swaggerDefinition: {
         openapi: '3.0.0',
         info: {
-            title: 'Pokemon API Documentation',
+            title: 'Pokémon API',
             version: '1.0.0',
-            description: 'API Documentation for my Express.js application',
+            description: 'API de gestion de Pokémon et d\'équipes',
         },
         servers: [
             {
                 url: 'http://localhost:3000',
-            },
+                description: 'Serveur local'
+            }
         ],
-        "components": {
-            "securitySchemes": {
-                "bearerAuth": {
-                    "type": "http",
-                    "scheme": "bearer",
-                    "bearerFormat": "JWT"
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT'
                 }
             },
             schemas: {
-                User: {
-                    type: "object",
-                    required: ["username", "password"],
-                    properties: {
-                        id: {
-                            type: 'integer',
-                            description: 'ID of the user',
-                        },
-                        username: {
-                            type: 'string',
-                            description: 'Username of the user',
-                        },
-                        password: {
-                            type: 'string',
-                            description: 'Password of the user',
-                        },
-                    }
-                },
                 Pokemon: {
-                    type: "object",
-                    required: ["name", "hp", "cp", "type"],
+                    type: 'object',
                     properties: {
-                        id: {
-                            type: 'integer',
-                            description: 'ID of the pokemon',
-                            required: true
-                        },
-                        name: {
-                            type: 'string',
-                            description: 'Name of The pokemon',
-                        },
-                        hp: {
-                            type: 'string',
-                        },
-                        cp: {
-                            type: 'string',
-                        },
-                        picture: {
-                            type: 'string',
-                            description: 'picture of The pokemon',
-                        },
+                        name: { type: 'string' },
+                        hp: { type: 'number' },
+                        cp: { type: 'number' },
+                        picture: { type: 'string' },
                         types: {
                             type: 'array',
-                            description: 'types of pokemon',
-                            items: {
-                                type: 'string',
-                                description: 'Type of the pokemon',
-                            }
+                            items: { type: 'string' }
+                        }
+                    }
+                },
+                User: {
+                    type: 'object',
+                    properties: {
+                        id: { type: 'integer' },
+                        username: { type: 'string' },
+                        password: { type: 'string' }
+                    }
+                },
+                Team: {  // New schema for Team
+                    type: 'object',
+                    properties: {
+                        id: { type: 'integer' },
+                        name: { type: 'string' },
+                        pokemons: {
+                            type: 'array',
+                            items: { $ref: '#/components/schemas/Pokemon' }
                         }
                     }
                 }
             }
         },
-        tags: [
-            {
-                name: 'Users',
-                description: 'API for managing users',
-            },
-            {
-                name: 'Pokemons',
-                description: 'API for managing pokemons'
-            },
-        ],
     },
-    apis: ['./src/routes/*.js'],
+    apis: ['./src/routes/*.js']  // Automatically parse the files in routes for Swagger comments
 };
 
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
 module.exports = swaggerDocs;
