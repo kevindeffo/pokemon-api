@@ -32,7 +32,7 @@
             "site_admin": false
         },
         "html_url": "https://github.com/kevindeffo/pokemon-api",
-        "description": "il s'agit d'une api CRUD avec NodeJs et son framework Express que j'ai realise dans le cadre de revision des notions de ExpressJs",
+        "description": "Ici il s'agit d'une api CRUD avec NodeJs et son framework Express que j'ai realise dans le cadre de revision des notions de ExpressJs et sails Js",
         "fork": false,
         "url": "https://github.com/kevindeffo/pokemon-api",
         "forks_url": "https://api.github.com/repos/kevindeffo/pokemon-api/forks",
