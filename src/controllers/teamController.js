@@ -13,7 +13,7 @@ module.exports = {
             });
     },
     getAllTeams: (req, res) => {
-        Team.findAll({ include: ['pokemons'] })
+        Team.findAll({ include: [{ model: Pokemon, as: 'pokemons' }] })
             .then(teams => {
                 const message = "Liste des équipes récupérée avec succès.";
                 res.status(200).json({ message, data: teams });
@@ -24,7 +24,7 @@ module.exports = {
             });
     },
     getTeamById: (req, res) => {
-        Team.findByPk(req.params.id, { include: ['pokemons'] })
+        Team.findByPk(req.params.id, { include: [{ model: Pokemon, as: 'pokemons' }] })
             .then(team => {
                 if (!team) {
                     const message = "L'équipe demandée n'existe pas.";
@@ -42,7 +42,7 @@ module.exports = {
         const id = req.params.id;
         Team.update(req.body, { where: { id } })
             .then(_ => {
-                return Team.findByPk(id).then(team => {
+                return Team.findByPk(id, { include: [{ model: Pokemon, as: 'pokemons' }] }).then(team => {
                     if (!team) {
                         const message = "L'équipe demandée n'existe pas.";
                         return res.status(404).json({ message });
@@ -71,6 +71,17 @@ module.exports = {
             })
             .catch(error => {
                 const message = "L'équipe n'a pas pu être supprimée. Veuillez réessayer plus tard.";
+                res.status(500).json({ message, data: error });
+            });
+    },
+    getAllPokemons: (req, res) => {
+        Pokemon.findAll({ include: ['relatedInfo'] }) // Adjust 'relatedInfo' to actual associations
+            .then(pokemons => {
+                const message = "Liste des Pokémon récupérée avec succès.";
+                res.status(200).json({ message, data: pokemons });
+            })
+            .catch(error => {
+                const message = "La liste des Pokémon n'a pas pu être récupérée. Veuillez réessayer plus tard.";
                 res.status(500).json({ message, data: error });
             });
     }

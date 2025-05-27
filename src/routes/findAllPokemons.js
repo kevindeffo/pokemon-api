@@ -1,6 +1,7 @@
-const {Pokemon} = require("../db/sequelize");
-const {Op} = require("sequelize");
-const auth = require("../auth/auth")
+const { Pokemon } = require("../db/sequelize");
+const { Op } = require("sequelize");
+const auth = require("../auth/auth");
+const checkRole = require("../auth/checkRole"); // Import role checking middleware
 
 module.exports = (app) => {
     /**
@@ -34,10 +35,12 @@ module.exports = (app) => {
    *                 $ref: '#/components/schemas/Pokemon'
    *       400:
    *         description: Bad Request
+   *       403:
+   *         description: Forbidden
    *       500:
    *         description: Internal Server Error
    */
-    app.get("/api/pokemons", auth, (req, res) => {
+    app.get("/api/pokemons", auth, checkRole(['admin', 'manager']), (req, res) => {
         if (req.query.name) {
             const name = req.query.name;
             const limit = parseInt(req.query.limit) || 5;
