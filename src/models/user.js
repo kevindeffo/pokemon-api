@@ -11,6 +11,18 @@ module.exports = (sequelize, DataTypes) => {
                 msg: "Ce nom est deja pris"
             }
         },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: {
+                msg: "Cet e-mail est déjà utilisé"
+            },
+            validate: {
+                isEmail: {
+                    msg: "L'e-mail doit être valide"
+                }
+            }
+        },
         password: {
             type: DataTypes.STRING
         },
@@ -20,5 +32,5 @@ module.exports = (sequelize, DataTypes) => {
         resetPasswordExpires: {
             type: DataTypes.DATE
         }
-    })
+    });
 }

@@ -44,7 +44,7 @@ const swaggerOptions = {
                         password: { type: 'string' }
                     }
                 },
-                Team: {  // New schema for Team
+                Team: {
                     type: 'object',
                     properties: {
                         id: { type: 'integer' },
@@ -53,6 +53,20 @@ const swaggerOptions = {
                             type: 'array',
                             items: { $ref: '#/components/schemas/Pokemon' }
                         }
+                    }
+                },
+                LoginRequest: {
+                    type: 'object',
+                    properties: {
+                        email: { type: 'string' },
+                        password: { type: 'string' }
+                    }
+                },
+                LoginResponse: {
+                    type: 'object',
+                    properties: {
+                        token: { type: 'string' },
+                        email: { type: 'string' }
                     }
                 }
             }
